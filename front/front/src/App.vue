@@ -14,15 +14,18 @@
       自分の情報
     </router-link> <!-- 追加 -->
     <router-view />
+    <Udoncard />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Udoncard from './components/organisms/Udoncard.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
+    Udoncard,
   },
 });
 </script>

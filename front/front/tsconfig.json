@@ -5,6 +5,8 @@
         "name": "@vuedx/typescript-plugin-vue"
       }
     ],
+    "experimentalDecorators": true, // componentで.tsを読み込んだ時にveturのエラーが出るため追記
+    "allowJs": true, // componentで.tsを読み込んだ時にveturのエラーが出るため追記
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
