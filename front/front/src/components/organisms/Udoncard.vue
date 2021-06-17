@@ -1,7 +1,10 @@
 <template>
+  {{ points }}
   <div id="konva-container">
     test
   </div>
+  {{ x }}
+
   <Textarea v-model="value" rows="5" cols="30" />
 </template>
 
@@ -18,29 +21,22 @@ export default defineComponent({
   name: 'Udoncard',
   components: { Textarea },
   setup: () => {
-    const products = ref([
-      {
-        title: 'サンプル',
-        auther: 'noname',
-        description: '詳細',
-      },
-      {
-        title: 'サンプル2',
-        auther: '詳細未記入',
-      },
-    ]);
+    const x = ref(0);
+    const points = ref([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
 
     const value = ref('test');
+    // watchEffectだと #konva-container が描画される前に動いてしまう
     watch([value], () => {
-      draw(value.value);
+      draw(value.value, points, x);
     });
 
     onMounted(() => {
-      draw(value.value);
+      draw(value.value, points, x);
     });
     return {
-      products,
       value,
+      points,
+      x,
     };
   },
 });

@@ -21,7 +21,7 @@ const createItems = (value: string) => {
     })
   ]
 }
-export const draw = (value: string) => {
+export const draw = (value: string, points: any, test: any) => {
   // first we need to create a stage
   var stage = new Konva.Stage({
     container: 'konva-container',   // id of container <div>
@@ -35,7 +35,17 @@ export const draw = (value: string) => {
 
 
   // add the shape to the layer
-  createItems(value).forEach(item => layer.add(item))
+  createItems(value).forEach((item, i) => {
+    item.draggable(true);
+    item.on('dragend', (event) => {
+      const { x, y } = event.target.attrs
+      console.log('x', x);
+      console.log('y', y);
+      points.value[i] = { x, y }
+      test.value = x
+    });
+    layer.add(item)
+  })
 
 
   // add the layer to the stage
