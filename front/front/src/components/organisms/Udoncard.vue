@@ -27,11 +27,11 @@ export default defineComponent({
     const value = ref('test');
     // watchEffectだと #konva-container が描画される前に動いてしまう
     watch([value], () => {
-      draw(value.value, points, x);
+      draw(value.value, points.value, x);
     });
 
     onMounted(() => {
-      draw(value.value, points, x);
+      draw(value.value, points.value, x);
     });
     return {
       value,

@@ -1,27 +1,28 @@
 import Konva from 'konva'
 
+interface Point { x: number, y: number }
 const canvasWidth = 242
 const canvasHight = 342
 
-const createItems = (value: string) => {
+const createItems = (points: Point[], value: string) => {
   return [
     new Konva.Circle({
-      x: 100 / 2,
-      y: 100 / 2,
+      x: points[0].x,
+      y: points[0].y,
       radius: 70,
       fill: 'red',
       stroke: 'black',
       strokeWidth: 4
     }),
     new Konva.Text({
-      x: 100,
-      y: 100,
+      x: points[1].x,
+      y: points[1].y,
       fontSize: 14,
       text: value
     })
   ]
 }
-export const draw = (value: string, points: any, test: any) => {
+export const draw = (value: string, points: Point[], test: any) => {
   // first we need to create a stage
   var stage = new Konva.Stage({
     container: 'konva-container',   // id of container <div>
@@ -35,13 +36,13 @@ export const draw = (value: string, points: any, test: any) => {
 
 
   // add the shape to the layer
-  createItems(value).forEach((item, i) => {
+  createItems(points, value).forEach((item, i) => {
     item.draggable(true);
     item.on('dragend', (event) => {
       const { x, y } = event.target.attrs
       console.log('x', x);
       console.log('y', y);
-      points.value[i] = { x, y }
+      points[i] = { x, y }
       test.value = x
     });
     layer.add(item)
