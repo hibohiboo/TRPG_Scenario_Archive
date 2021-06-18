@@ -1,24 +1,22 @@
 import {
-  ref, defineComponent, onMounted, watchEffect, watch,
+  ref, defineComponent, onMounted, watchEffect, watch, reactive
 } from 'vue';
+import { loadData } from '../store';
 import { draw } from './draw'
 
 export const setup = () => {
-  const x = ref(0);
-  const points = ref([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
+  const data = reactive(loadData());
 
-  const value = ref('test');
   // watchEffectだと #konva-container が描画される前に動いてしまう
-  watch([value], () => {
-    draw(value.value, points.value, x);
+  watch([data], () => {
+    console.log('watch')
+    draw(data);
   });
 
   onMounted(() => {
-    draw(value.value, points.value, x);
+    draw(data);
   });
   return {
-    value,
-    points,
-    x,
+    data
   };
 }
