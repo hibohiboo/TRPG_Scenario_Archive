@@ -1,11 +1,13 @@
 <template>
-  {{ points }}
-  <div id="konva-container">
-    test
+  <div class="p-grid p-jc-center">
+    <div class="p-col-4">
+      <div id="konva-container" />
+    </div>
+    <div class="p-col-4">
+      <Textarea v-model="value" :auto-resize="true" />
+    </div>
   </div>
   {{ x }}
-
-  <Textarea v-model="value" rows="5" cols="30" />
 </template>
 
 <script lang="ts">
@@ -15,30 +17,12 @@ import {
 } from 'vue';
 import Textarea from 'primevue/textarea';
 // eslint-disable-next-line import/extensions
-import { draw } from '../../domain/udoncard/setup';
+import { setup } from '../../domain/udoncard/setup';
 
 export default defineComponent({
   name: 'Udoncard',
   components: { Textarea },
-  setup: () => {
-    const x = ref(0);
-    const points = ref([{ x: 0, y: 0 }, { x: 0, y: 0 }]);
-
-    const value = ref('test');
-    // watchEffectだと #konva-container が描画される前に動いてしまう
-    watch([value], () => {
-      draw(value.value, points.value, x);
-    });
-
-    onMounted(() => {
-      draw(value.value, points.value, x);
-    });
-    return {
-      value,
-      points,
-      x,
-    };
-  },
+  setup: () => setup(),
 });
 </script>
 

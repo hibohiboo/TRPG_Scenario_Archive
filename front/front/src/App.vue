@@ -1,5 +1,5 @@
 <template>
-  <img
+  <!-- <img
     alt="Vue logo"
     src="./assets/logo.png"
   >
@@ -12,10 +12,12 @@
     </router-link> |
     <router-link to="/login">
       自分の情報
-    </router-link> <!-- 追加 -->
-    <router-view />
-    <Udoncard />
-  </div>
+    </router-link>
+  <router-view />
+
+  </div> -->
+
+  <Udoncard />
 </template>
 
 <script lang="ts">
