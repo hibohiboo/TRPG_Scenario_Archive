@@ -13,11 +13,12 @@ const def = {
       { "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true }, "className": "Text" }]
     }]
 }
-export const saveData = (data: ContainerConfig) => {
-  localStorage.setItem(key, JSON.stringify(data))
+export const saveData = (data: string) => {
+  localStorage.setItem(key, data)
 }
 export const loadData = (): ContainerConfig => {
   const json = localStorage.getItem(key)
+  console.log('load', json)
   if (!json) return def
   return JSON.parse(json)
 }

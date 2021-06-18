@@ -4,10 +4,9 @@
       <div id="konva-container" />
     </div>
     <div class="p-col-4">
-      <Textarea v-model="value" :auto-resize="true" />
+      <Textarea v-model="data.children[0].children[1].attrs.text" :auto-resize="true" />
     </div>
   </div>
-  {{ x }}
 </template>
 
 <script lang="ts">

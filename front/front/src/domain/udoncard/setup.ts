@@ -9,9 +9,9 @@ export const setup = () => {
 
   // watchEffectだと #konva-container が描画される前に動いてしまう
   watch([data], () => {
-    console.log('watch')
     draw(data);
-  });
+  },
+    { deep: true });
 
   onMounted(() => {
     draw(data);
