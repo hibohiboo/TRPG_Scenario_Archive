@@ -4,7 +4,27 @@
       <div id="konva-container" />
     </div>
     <div class="p-col">
-      <Accordion :active-index="0">
+      <Accordion :active-index="1">
+        <AccordionTab header="全体設定">
+          <div class="sa-edit-item">
+            <label style="display:block">
+
+              width:
+              <InputText
+                v-model.number="store.state.data.attrs.width"
+                type="number"
+              />
+
+            </label>
+            <label style="display:block">
+              height:
+              <InputText
+                v-model.number="store.state.data.attrs.height"
+                type="number"
+              />
+            </label>
+          </div>
+        </AccordionTab>
         <AccordionTab header="テキスト">
           <div v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.textGroupIndex].children" :key="item" class="sa-edit-item">
             <Textarea v-model="item.attrs.text" :auto-resize="true" />
@@ -148,12 +168,12 @@
 <script lang="ts">
 /* eslint-disable import/no-unresolved */
 import {
-  ref, defineComponent, onMounted, watchEffect, watch,
+  defineComponent,
 } from 'vue';
 import Textarea from 'primevue/textarea';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
-import Card from 'primevue/card';
+
 import Button from 'primevue/button';
 
 // eslint-disable-next-line import/extensions
