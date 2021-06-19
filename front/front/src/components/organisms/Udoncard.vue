@@ -314,7 +314,7 @@ import {
 import Textarea from 'primevue/textarea';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
-
+import Dropdown from 'primevue/dropdown';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 
@@ -324,7 +324,7 @@ import { setup } from '../../domain/udoncard/setup';
 export default defineComponent({
   name: 'Udoncard',
   components: {
-    Textarea, Accordion, AccordionTab, Button, FileUpload,
+    Textarea, Accordion, AccordionTab, Button, FileUpload, Dropdown,
   },
   setup: () => setup(),
 });

@@ -316,7 +316,7 @@ import AccordionTab from 'primevue/accordiontab';
 
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
-
+import Dropdown from 'primevue/dropdown';
 import { cloneDeep } from 'lodash';
 import { ContainerConfig } from 'konva/lib/Container';
 import { createStore } from '@/domain/cards/store';
@@ -325,7 +325,7 @@ import { draw } from '@/domain/cards/draw';
 export default defineComponent({
   name: 'Udoncard',
   components: {
-    Textarea, Accordion, AccordionTab, Button, FileUpload,
+    Textarea, Accordion, AccordionTab, Button, FileUpload, Dropdown,
   },
   setup: () => {
     const containerId = 'template-card-front';

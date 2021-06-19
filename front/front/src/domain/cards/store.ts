@@ -10,7 +10,7 @@ const family = {
 const faWeight = { solid: '900', regular: '400', brands: '400', light: '300' }
 const defaultWidth = 242;
 const defaultHeight = 342;
-const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "text", "fill": "black", "fontFamily": family.serif, "fontStyle": faWeight.regular, "draggable": true } }
+const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "text", "fill": "black", "fontFamily": family.gothic, "fontStyle": faWeight.regular, "draggable": true } }
 
 const fontAwesomeHeart = { "className": "Text", "attrs": { "fontSize": 14, "text": "\uf004", "fill": "black", "fontFamily": family.fontawesome, "fontStyle": faWeight.regular, "draggable": true } }
 const baseRect = { "className": "Rect", "attrs": { "width": defaultWidth, "height": defaultHeight, "stroke": "black", "strokeWidth": 1, "cornerRadius": 10 } }

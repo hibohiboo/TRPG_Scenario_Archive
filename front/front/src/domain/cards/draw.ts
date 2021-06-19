@@ -9,10 +9,9 @@ export const draw = (key: string, data: ContainerConfig, updateData: (d: Contain
   const drawDataText = data.children[0]
     .children[textGroupIndex]
     .children.map((item: any) => {
-      console.log(item)
+      // fontawesomeは特殊な処理が必要 https://base64.work/so/javascript/2731511
       if (/\\u/.test(item.attrs.text)) {
         const unicode = item.attrs.text.replace(/\\u/g, '');
-        console.log('ni', unicode)
         return ({ ...item, attrs: { ...item.attrs, text: String.fromCodePoint(parseInt(unicode, 16)) } })
       }
       return item
