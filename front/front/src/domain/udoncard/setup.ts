@@ -13,6 +13,7 @@ export const setup = () => {
   }
 
   // watchEffectだと #konva-container が描画される前に動いてしまう
+  // watchにオブジェクトの変化を認識させるために、cloneDeepが必要
   watch(() => cloneDeep(data), (d) => {
     draw(d, updateData);
   });
