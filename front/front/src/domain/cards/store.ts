@@ -130,6 +130,20 @@ export const createStore = (key: string) => {
         .children[this.const.frameGroupIndex]
         .children.pop()
     },
+    addNewLine() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.lineGroupIndex]
+        .children.push(defLine)
+    },
+    deleteLine() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.lineGroupIndex]
+        .children.pop()
+    },
     bgImageUploader(event: { originalEvent: Event, files: File[] }) {
       // console.log('upload', event);
       const reader = new FileReader()
