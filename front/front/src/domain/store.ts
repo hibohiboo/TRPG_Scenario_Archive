@@ -1,5 +1,8 @@
 import type { ContainerConfig } from "konva/lib/Container";
+import { reactive } from "vue";
 const key = 'sa-edit-konva'
+
+const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true } }
 
 const def = {
   "className": "Stage",
@@ -20,7 +23,7 @@ const def = {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
           "children": [
-            { "className": "Text", "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true } }
+            defText
           ],
         }]
     }]
@@ -34,4 +37,28 @@ export const loadData = (): ContainerConfig => {
   console.log('load', json)
   if (!json) return def
   return JSON.parse(json)
+}
+
+export const createStore = () => {
+  const store = {
+    state: reactive({
+      data: loadData()
+    }),
+    const: {
+      layerIndex: 0,
+      textGroupIndex: 1
+    },
+    addNewText() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.textGroupIndex]
+        .children = [...this.state
+          .data
+          .children[this.const.layerIndex]
+          .children[this.const.textGroupIndex]
+          .children, defText]
+    }
+  };
+  return store;
 }

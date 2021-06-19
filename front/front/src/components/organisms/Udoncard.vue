@@ -6,7 +6,7 @@
     <div class="p-col-4">
       <Accordion :active-index="0">
         <AccordionTab header="テキスト">
-          <Card v-for="item in store.state.data.children[layerIndex].children[textGroupIndex].children" :key="item">
+          <Card v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.textGroupIndex].children" :key="item">
             <template #content>
               <Textarea v-model="item.attrs.text" :auto-resize="true" />
               <label style="display:block">
@@ -28,7 +28,7 @@
             </template>
           </Card>
           <div class="p-grid" style="margin: 10px">
-            <Button label="追加" icon="pi pi-plus" icon-pos="right" style="display:block" class="p-offset-1 p-col" />
+            <Button label="追加" icon="pi pi-plus" icon-pos="right" style="display:block" class="p-offset-1 p-col" @click="()=>store.addNewText()" />
             <Button label="削除" icon="pi pi-minus" icon-pos="right" style="display:block" class="p-offset-2 p-col p-button-danger" />
           </div>
         </AccordionTab>
@@ -63,10 +63,6 @@ export default defineComponent({
     Textarea, Accordion, AccordionTab, Button, Card,
   },
   setup: () => setup(),
-  computed: {
-    layerIndex() { return 0; },
-    textGroupIndex() { return 1; },
-  },
 });
 </script>
 
