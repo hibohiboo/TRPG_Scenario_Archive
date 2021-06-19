@@ -19,6 +19,13 @@ const def = {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
           "children": [
+            { "className": "Image", "attrs": { "scaleX": 1.0, "scaleY": 1.0 } }
+          ],
+        },
+        {
+          "className": "Group",
+          "attrs": { "x": 0, "y": 0 },
+          "children": [
             baseRect,
             defRect
           ],
@@ -50,8 +57,9 @@ export const createStore = () => {
     }),
     const: {
       layerIndex: 0,
-      textGroupIndex: 1,
-      frameGroupIndex: 0,
+      bgImageGroupIndex: 0,
+      frameGroupIndex: 1,
+      textGroupIndex: 2,
     },
     addNewText() {
       this.state
@@ -84,6 +92,45 @@ export const createStore = () => {
         .children[this.const.layerIndex]
         .children[this.const.frameGroupIndex]
         .children.pop()
+    },
+    bgImageUploader(event: { originalEvent: Event, files: File[] }) {
+      // console.log('upload', event);
+      const reader = new FileReader()
+      reader.onloadend = async () => {
+        if (reader.result) {
+          const url = reader.result.toString()
+          const image = new window.Image()
+          image.src = url
+
+          this.state
+            .data
+            .children[this.const.layerIndex]
+            .children[this.const.bgImageGroupIndex]
+            .children[0].attrs.image = image
+          return
+        }
+        console.log('read failed');
+      }
+      reader.readAsDataURL(event.files[0]);
+
+    },
+    setScale(event: any) {
+      console.log('set', event.target.value)
+      const scale = Number(event.target.value)
+      if (isNaN(scale)) return;
+      console.log('scale', scale)
+      const item = this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.bgImageGroupIndex]
+        .children[0].attrs;
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.bgImageGroupIndex]
+        .children[0].attrs.scaleX = scale
+      item.scaleY = scale
+      console.log('scale', item)
     }
   };
   return store;

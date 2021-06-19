@@ -23,6 +23,33 @@
                 type="number"
               />
             </label>
+            <p>背景画像</p>
+            <FileUpload
+              :file-limit="1"
+              name="bg[]"
+              accept="image/*"
+              choose-label="画像選択"
+              :show-cancel-button="false"
+              :show-upload-button="false"
+              @select="(event, files)=>store.bgImageUploader(event)"
+            >
+              <template #empty>
+                <p>画像ファイルをドラッグアンドドロップしてください.</p>
+              </template>
+            </FileUpload>
+            <label style="display:block">
+              拡大:
+              <InputText
+                :model-value="store.state
+                  .data
+                  .children[store.const.layerIndex]
+                  .children[store.const.bgImageGroupIndex]
+                  .children[0].attrs.scaleX"
+                type="number"
+                step="0.1"
+                @input="(event)=>store.setScale(event)"
+              />
+            </label>
           </div>
         </AccordionTab>
         <AccordionTab header="テキスト">
@@ -175,6 +202,7 @@ import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 
 import Button from 'primevue/button';
+import FileUpload from 'primevue/fileupload';
 
 // eslint-disable-next-line import/extensions
 import { setup } from '../../domain/udoncard/setup';
@@ -182,7 +210,7 @@ import { setup } from '../../domain/udoncard/setup';
 export default defineComponent({
   name: 'Udoncard',
   components: {
-    Textarea, Accordion, AccordionTab, Button,
+    Textarea, Accordion, AccordionTab, Button, FileUpload,
   },
   setup: () => setup(),
 });
