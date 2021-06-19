@@ -8,9 +8,6 @@ const Home = { template: '<div>Home</div>' };
 
 const routes: vr.RouteRecordRaw[] = [
   { path: '/', component: HelloWorld },
-  { path: '/login', name: "Login", component: login },
-  { path: '/senario', name: "demo", component: senario },
-  { path: '/upload', name: "upload", component: Upload },
 ];
 
 export const router = vr.createRouter({

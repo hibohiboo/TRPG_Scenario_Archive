@@ -1,22 +1,4 @@
 <template>
-  <!-- <img
-    alt="Vue logo"
-    src="./assets/logo.png"
-  >
-  <div id="nav">
-    <router-link to="/upload">
-      投稿
-    </router-link> |
-    <router-link to="/senario">
-      探す
-    </router-link> |
-    <router-link to="/login">
-      自分の情報
-    </router-link>
-  <router-view />
-
-  </div> -->
-
   <Udoncard />
 </template>
 
