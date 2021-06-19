@@ -1,9 +1,9 @@
 <template>
   <div class="p-grid p-jc-center">
-    <div class="p-col-4">
+    <div class="p-col">
       <div id="konva-container" />
     </div>
-    <div class="p-col-4">
+    <div class="p-col">
       <Accordion :active-index="0">
         <AccordionTab header="テキスト">
           <Card v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.textGroupIndex].children" :key="item">
@@ -12,7 +12,6 @@
               <label style="display:block">
                 x:
                 <InputText
-                  id="inputtext"
                   v-model.number="item.attrs.x"
                   type="number"
                 />
@@ -20,7 +19,6 @@
               <label style="display:block">
                 y:
                 <InputText
-                  id="inputtext"
                   v-model.number="item.attrs.y"
                   type="number"
                 />
@@ -32,8 +30,81 @@
             <Button label="削除" icon="pi pi-minus" icon-pos="right" style="display:block" class="p-offset-2 p-col p-button-danger" />
           </div>
         </AccordionTab>
-        <AccordionTab header="Header II">
-          Content
+        <AccordionTab header="枠">
+          <Card v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.frameGroupIndex].children" :key="item">
+            <template #content>
+              <label style="display:block">
+                width:
+                <InputText
+                  v-model.number="item.attrs.width"
+                  type="number"
+                  min="0"
+                />
+              </label>
+              <label style="display:block">
+                height:
+                <InputText
+                  v-model.number="item.attrs.height"
+                  type="number"
+                  min="0"
+                />
+              </label>
+              <details>
+                <summary>位置詳細</summary>
+                <label style="display:block">
+                  x:
+                  <InputText
+                    v-model.number="item.attrs.x"
+                    type="number"
+                  />
+                </label>
+                <label style="display:block">
+                  y:
+                  <InputText
+                    v-model.number="item.attrs.y"
+                    type="number"
+                  />
+                </label>
+              </details>
+              <details>
+                <summary>詳細設定</summary>
+                <label style="display:block">
+                  枠線幅:
+                  <InputText
+                    v-model.number="item.attrs.strokeWidth"
+                    type="number"
+                    min="0"
+                  />
+                </label>
+                <label style="display:block">
+                  線の色:
+                  <input
+                    v-model.number="item.attrs.stroke"
+                    type="color"
+                  >
+                </label>
+                <label style="display:block">
+                  塗りつぶしの色:
+                  <input
+                    v-model.number="item.attrs.fill"
+                    type="color"
+                  >
+                </label>
+                <label style="display:block">
+                  角丸:
+                  <InputText
+                    v-model.number="item.attrs.cornerRadius"
+                    type="number"
+                    min="0"
+                  />
+                </label>
+              </details>
+            </template>
+          </Card>
+          <div class="p-grid" style="margin: 10px">
+            <Button label="追加" icon="pi pi-plus" icon-pos="right" style="display:block" class="p-offset-1 p-col" @click="()=>store.addNewText()" />
+            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="display:block" class="p-offset-2 p-col p-button-danger" />
+          </div>
         </AccordionTab>
         <AccordionTab header="Header III">
           Content

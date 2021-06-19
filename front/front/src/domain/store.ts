@@ -1,12 +1,15 @@
 import type { ContainerConfig } from "konva/lib/Container";
 import { reactive } from "vue";
 const key = 'sa-edit-konva'
-
+const defaultWidth = 242;
+const defaultHeight = 342;
 const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true } }
+const baseRect = { "className": "Rect", "attrs": { "width": defaultWidth, "height": defaultHeight, "stroke": "black", "strokeWidth": 1, "cornerRadius": 10 } }
+const defRect = { "className": "Rect", "attrs": { "width": 50, "height": 50, "stroke": "black", "strokeWidth": 1, "fill": 'white', "draggable": true } }
 
 const def = {
   "className": "Stage",
-  "attrs": { "width": 242, "height": 342 },
+  "attrs": { "width": defaultWidth, "height": defaultHeight },
   "children": [
     {
       "className": "Layer",
@@ -16,7 +19,8 @@ const def = {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
           "children": [
-            { "attrs": { "radius": 70, "fill": "red", "stroke": "black", "strokeWidth": 4, "draggable": true }, "className": "Circle" }
+            baseRect,
+            defRect
           ],
         },
         {
@@ -46,7 +50,8 @@ export const createStore = () => {
     }),
     const: {
       layerIndex: 0,
-      textGroupIndex: 1
+      textGroupIndex: 1,
+      frameGroupIndex: 0,
     },
     addNewText() {
       this.state
