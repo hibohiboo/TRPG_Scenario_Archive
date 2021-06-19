@@ -30,9 +30,8 @@ export const saveData = (data: string) => {
   localStorage.setItem(key, data)
 }
 export const loadData = (): ContainerConfig => {
-  return def
-  // const json = localStorage.getItem(key)
-  // console.log('load', json)
-  // if (!json) return def
-  // return JSON.parse(json)
+  const json = localStorage.getItem(key)
+  console.log('load', json)
+  if (!json) return def
+  return JSON.parse(json)
 }

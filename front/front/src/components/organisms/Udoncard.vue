@@ -4,7 +4,7 @@
       <div id="konva-container" />
     </div>
     <div class="p-col-4">
-      <Textarea v-model="store.data.children[0].children[1].children[0].attrs.text" :auto-resize="true" />
+      <Textarea v-for="item in store.data.children[0].children[1].children" :key="item" v-model="item.attrs.text" :auto-resize="true" />
     </div>
   </div>
 </template>
