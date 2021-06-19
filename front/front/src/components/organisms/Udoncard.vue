@@ -185,6 +185,65 @@
             <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteFrame()" />
           </div>
         </AccordionTab>
+        <AccordionTab header="線">
+          <div v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.lineGroupIndex].children" :key="item" class="sa-edit-item">
+            <label style="display:block">
+              長さ:
+              <InputText
+                v-model.number="item.attrs.points[2]"
+                type="number"
+                min="0"
+              />
+            </label>
+            <label style="display:block">
+              回転:
+              <InputText
+                v-model.number="item.attrs.rotation"
+                type="number"
+                min="0"
+              />
+            </label>
+            <details>
+              <summary>位置</summary>
+              <label style="display:block">
+                x:
+                <InputText
+                  v-model.number="item.attrs.x"
+                  type="number"
+                />
+              </label>
+              <label style="display:block">
+                y:
+                <InputText
+                  v-model.number="item.attrs.y"
+                  type="number"
+                />
+              </label>
+            </details>
+            <details>
+              <summary>詳細設定</summary>
+              <label style="display:block">
+                枠線幅:
+                <InputText
+                  v-model.number="item.attrs.strokeWidth"
+                  type="number"
+                  min="0"
+                />
+              </label>
+              <label style="display:block">
+                線の色:
+                <input
+                  v-model.number="item.attrs.stroke"
+                  type="color"
+                >
+              </label>
+            </details>
+          </div>
+          <div class="sa-edit-item-footer">
+            <Button label="追加" icon="pi pi-plus" icon-pos="right" @click="()=>store.addNewFrame()" />
+            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteFrame()" />
+          </div>
+        </AccordionTab>
         <AccordionTab header="画像">
           <p>※画像は保存されません</p>
           <div v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.imageGroupIndex].children" :key="item" class="sa-edit-item">

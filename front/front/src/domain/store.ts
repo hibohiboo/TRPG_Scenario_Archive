@@ -6,6 +6,7 @@ const defaultHeight = 342;
 const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true } }
 const baseRect = { "className": "Rect", "attrs": { "width": defaultWidth, "height": defaultHeight, "stroke": "black", "strokeWidth": 1, "cornerRadius": 10 } }
 const defRect = { "className": "Rect", "attrs": { "width": 50, "height": 50, "stroke": "black", "strokeWidth": 1, "fill": 'white', "draggable": true } }
+const defLine = { "className": "Line", "attrs": { points: [0, 0, 100, 0], "y": 10, "stroke": "black", "strokeWidth": 5, "draggable": true } }
 const defImage = { "className": "Image", "attrs": { "scaleX": 1.0, "scaleY": 1.0, "draggable": true } }
 const def = {
   "className": "Stage",
@@ -15,11 +16,13 @@ const def = {
       "className": "Layer",
       "attrs": {},
       "children": [
+        // 背景画像
         {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
           "children": [{ "className": "Image", "attrs": { "scaleX": 1.0, "scaleY": 1.0 } }],
         },
+        // 枠
         {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
@@ -28,11 +31,21 @@ const def = {
             defRect
           ],
         },
+        // 線
+        {
+          "className": "Group",
+          "attrs": { "x": 0, "y": 0 },
+          "children": [
+            defLine
+          ],
+        },
+        // 画像
         {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
           "children": [],
         },
+        // テキスト
         {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
@@ -62,8 +75,9 @@ export const createStore = () => {
       layerIndex: 0,
       bgImageGroupIndex: 0,
       frameGroupIndex: 1,
-      imageGroupIndex: 2,
-      textGroupIndex: 3,
+      lineGroupIndex: 2,
+      imageGroupIndex: 3,
+      textGroupIndex: 4,
     },
     addNewText() {
       this.state
