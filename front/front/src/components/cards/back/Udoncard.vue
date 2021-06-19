@@ -323,7 +323,7 @@ import { createStore } from '@/domain/cards/store';
 import { draw } from '@/domain/cards/draw';
 
 export default defineComponent({
-  name: 'Udoncard',
+  name: 'UdoncardBack',
   components: {
     Textarea, Accordion, AccordionTab, Button, FileUpload, Dropdown,
   },

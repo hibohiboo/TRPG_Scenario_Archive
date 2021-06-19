@@ -4,7 +4,7 @@
       <div :id="containerId" />
     </div>
     <div style="margin-left: 10px;">
-      <Accordion :active-index="1">
+      <Accordion>
         <AccordionTab header="全体設定">
           <div class="sa-edit-item">
             <label style="display:block">
@@ -323,7 +323,7 @@ import { createStore } from '@/domain/cards/store';
 import { draw } from '@/domain/cards/draw';
 
 export default defineComponent({
-  name: 'Udoncard',
+  name: 'UdoncardFront',
   components: {
     Textarea, Accordion, AccordionTab, Button, FileUpload, Dropdown,
   },
