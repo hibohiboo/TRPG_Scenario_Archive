@@ -1,7 +1,9 @@
 <template>
   <div>
     <h3>カード一覧</h3>
-    <Button label="ユドナリウム用zipダウンロード" @click="zipHandler" />
+    <div>
+      <Button label="ユドナリウム用zipダウンロード" @click="zipHandler" />
+    </div>
     <Textarea v-model="csv" :auto-resize="true" cols="50" />
     <div v-for="(item, index) in csv.split('\n')" :key="index" class="p-d-flex">
       <div :id="`${frontId}-${index}`" />
