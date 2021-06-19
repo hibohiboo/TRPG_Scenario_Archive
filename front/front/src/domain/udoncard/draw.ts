@@ -11,11 +11,11 @@ export const draw = (data: ContainerConfig, updateData: (d: ContainerConfig) => 
 
   // then create layer
   var layer = stage.find('Layer')
-  stage.off('dragend');
+
   stage.on('dragend', async (event: any) => {
     console.log('drageend')
     updateData(event.currentTarget)
   })
   layer[0].draw();
-  // saveData(stage.toJSON())
+  saveData(stage.toJSON())
 }

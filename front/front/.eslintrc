@@ -16,6 +16,7 @@
   },
   "plugins": [],
   "rules": {
+    "max-len": ["off"],
     "vue/max-attributes-per-line": [
       "error",
       {
