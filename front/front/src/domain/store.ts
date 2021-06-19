@@ -63,6 +63,27 @@ export const createStore = () => {
           .children[this.const.layerIndex]
           .children[this.const.textGroupIndex]
           .children, defText]
+    },
+    deleteText() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.textGroupIndex]
+        .children.pop()
+    },
+    addNewFrame() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.frameGroupIndex]
+        .children.push(defRect)
+    },
+    deleteFrame() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.frameGroupIndex]
+        .children.pop()
     }
   };
   return store;

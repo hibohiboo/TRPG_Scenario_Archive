@@ -41,11 +41,12 @@
                   />
                 </label>
                 <label style="display:block">
-                  文字位置(left/center/right):
+                  文字位置:
                   <InputText
                     v-model.number="item.attrs.align"
                     type="text"
                   />
+                  (left/center/right)
                 </label>
                 <label style="display:block">
                   幅:
@@ -57,9 +58,9 @@
               </label>
             </details>
           </div>
-          <div class="p-grid" style="margin: 10px">
-            <Button label="追加" icon="pi pi-plus" icon-pos="right" style="display:block" class="p-offset-1 p-col" @click="()=>store.addNewText()" />
-            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="display:block" class="p-offset-2 p-col p-button-danger" />
+          <div class="sa-edit-item-footer">
+            <Button label="追加" icon="pi pi-plus" icon-pos="right" @click="()=>store.addNewText()" />
+            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteText()" />
           </div>
         </AccordionTab>
         <AccordionTab header="枠">
@@ -115,7 +116,7 @@
                 >
               </label>
               <label style="display:block">
-                塗りつぶしの色:
+                背景色:
                 <input
                   v-model.number="item.attrs.fill"
                   type="color"
@@ -131,9 +132,9 @@
               </label>
             </details>
           </div>
-          <div class="p-grid" style="margin: 10px">
-            <Button label="追加" icon="pi pi-plus" icon-pos="right" style="display:block" class="p-offset-1 p-col" @click="()=>store.addNewText()" />
-            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="display:block" class="p-offset-2 p-col p-button-danger" />
+          <div class="sa-edit-item-footer">
+            <Button label="追加" icon="pi pi-plus" icon-pos="right" @click="()=>store.addNewFrame()" />
+            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteFrame()" />
           </div>
         </AccordionTab>
         <AccordionTab header="Header III">
@@ -180,5 +181,9 @@ export default defineComponent({
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #222;
+}
+.sa-edit-item-footer{
+  margin: 10px;
+  text-align: left;
 }
 </style>
