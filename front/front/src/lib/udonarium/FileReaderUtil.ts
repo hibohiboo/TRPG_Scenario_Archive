@@ -1,5 +1,5 @@
 import * as WordArray from 'crypto-js/lib-typedarrays.js'
-import * as SHA256 from 'crypto-js/sha256.js'
+import * as crypto from 'crypto-js'
 
 export function readAsArrayBufferAsync(blob: Blob): Promise<ArrayBuffer> {
   return new Promise<ArrayBuffer>((resolve, reject) => {
@@ -42,6 +42,7 @@ async function _calcSHA256Async(blob: Blob): Promise<string> {
 }
 
 function _calcSHA256(arrayBuffer: ArrayBuffer): string {
-  const wordArray = WordArray.create(arrayBuffer)
-  return SHA256(<any>wordArray).toString()
+  // TODO: なんとかする
+  const wordArray = WordArray.create(arrayBuffer as any as number[])
+  return crypto.SHA256(<any>wordArray).toString()
 }
