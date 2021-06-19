@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>カード一覧</h3>
+    <Button label="ユドナリウム用zipダウンロード" @click="zipHandler" />
     <Textarea v-model="csv" :auto-resize="true" cols="50" />
     <div v-for="(item, index) in csv.split('\n')" :key="index" class="p-d-flex">
       <div :id="`${frontId}-${index}`" />
@@ -13,9 +14,13 @@
 import {
   defineComponent, onMounted, onUpdated, ref, watchEffect,
 } from 'vue';
+
+import Button from 'primevue/button';
 import Textarea from 'primevue/textarea';
 // eslint-disable-next-line import/no-unresolved
 import { draw } from '@/domain/cardList/draw';
+// eslint-disable-next-line import/no-unresolved
+import { createZip } from '@/domain/cardList/udonEvent';
 
 const pc1 = 'PC1,校門で君は気づいた。\\n外に出られない。赤い赤い夕焼け空。長い長い黒い影。誰もいないグラウンド。音のしない校舎。風のない蒸し暑い空気。時計は 4 時 44 分 44 秒.校門に集まっているやつらの誰も、帰り方を知らない。君も分からない。君の使命は【家に帰る】ことである。,なし,秘密を見てはならない。';
 const pc2 = 'PC2,校門で君は気づいた。\\n外に出られない。赤い赤い夕焼け空。長い長い黒い影。誰もいないグラウンド。音のしない校舎。風のない蒸し暑い空気。時計は 4 時 44 分 44 秒.校門に集まっているやつらの誰も、帰り方を知らない。君も分からない。君の使命は【家に帰る】ことである。,なし,秘密を見てはならない。';
@@ -24,7 +29,7 @@ ${pc2}`;
 const csvKey = 'sa-csv-key';
 export default defineComponent({
   name: 'CardList',
-  components: { Textarea },
+  components: { Textarea, Button },
   setup() {
     const loadCsv = localStorage.getItem(csvKey) || text;
     const csv = ref(loadCsv);
@@ -50,11 +55,15 @@ export default defineComponent({
         });
       });
     });
+    const zipHandler = () => {
+      createZip(csv.value.split('\n'));
+    };
 
     return {
       backId,
       frontId,
       csv,
+      zipHandler,
     };
   },
 });
