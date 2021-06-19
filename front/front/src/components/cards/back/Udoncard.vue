@@ -80,28 +80,34 @@
                   v-model.number="item.attrs.fontSize"
                   type="number"
                 />
-                <label style="display:block">
-                  文字色:
-                  <InputText
-                    v-model.number="item.attrs.fill"
-                    type="color"
-                  />
-                </label>
-                <label style="display:block">
-                  文字位置:
-                  <InputText
-                    v-model.number="item.attrs.align"
-                    type="text"
-                  />
-                  (left/center/right)
-                </label>
-                <label style="display:block">
-                  幅:
-                  <InputText
-                    v-model.number="item.attrs.width"
-                    type="number"
-                  />
-                </label>
+              </label>
+              <label style="display:block">
+                文字色:
+                <InputText
+                  v-model.number="item.attrs.fill"
+                  type="color"
+                />
+              </label>
+              <label style="display:block">
+                文字位置:
+                <InputText
+                  v-model.number="item.attrs.align"
+                  type="text"
+                />
+                (left/center/right)
+              </label>
+              <label style="display:block">
+                幅:
+                <InputText
+                  v-model.number="item.attrs.width"
+                  type="number"
+                />
+              </label>
+              <label>フォント:
+                <Dropdown v-model="item.attrs.fontFamily" :options="store.const.fontFamilies" option-label="label" option-value="value" />
+              </label>
+              <label>style:
+                <Dropdown v-model="item.attrs.fontStyle" :options="store.const.fontStyles" option-label="label" option-value="value" />
               </label>
             </details>
           </div>
@@ -310,7 +316,7 @@ import AccordionTab from 'primevue/accordiontab';
 
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
-
+import Dropdown from 'primevue/dropdown';
 import { cloneDeep } from 'lodash';
 import { ContainerConfig } from 'konva/lib/Container';
 import { createStore } from '@/domain/cards/store';
@@ -319,7 +325,7 @@ import { draw } from '@/domain/cards/draw';
 export default defineComponent({
   name: 'Udoncard',
   components: {
-    Textarea, Accordion, AccordionTab, Button, FileUpload,
+    Textarea, Accordion, AccordionTab, Button, FileUpload, Dropdown,
   },
   setup: () => {
     const containerId = 'template-card-back';

@@ -102,6 +102,12 @@
                     type="number"
                   />
                 </label>
+                <label>フォント:
+                  <Dropdown v-model="item.attrs.fontFamily" :options="store.const.fontFamilies" option-label="label" option-value="value" />
+                </label>
+                <label>style:
+                  <Dropdown v-model="item.attrs.fontStyle" :options="store.const.fontStyles" option-label="label" option-value="value" />
+                </label>
               </label>
             </details>
           </div>

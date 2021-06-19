@@ -1,9 +1,18 @@
 import type { ContainerConfig } from "konva/lib/Container";
 import { reactive } from "vue";
-
+const family = {
+  gothic:
+    '"Hiragino Sans W3", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif',
+  serif:
+    '"游明朝", YuMincho, "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif',
+  fontawesome: '"Font Awesome 5 Free", "Font Awesome 5 Brands"',
+}
+const faWeight = { solid: '900', regular: '400', brands: '400', light: '300' }
 const defaultWidth = 242;
 const defaultHeight = 342;
-const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true } }
+const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "text", "fill": "black", "fontFamily": family.serif, "fontStyle": faWeight.regular, "draggable": true } }
+
+const fontAwesomeHeart = { "className": "Text", "attrs": { "fontSize": 14, "text": "\uf004", "fill": "black", "fontFamily": family.fontawesome, "fontStyle": faWeight.regular, "draggable": true } }
 const baseRect = { "className": "Rect", "attrs": { "width": defaultWidth, "height": defaultHeight, "stroke": "black", "strokeWidth": 1, "cornerRadius": 10 } }
 const defRect = { "className": "Rect", "attrs": { "width": 50, "height": 50, "stroke": "black", "strokeWidth": 1, "fill": 'white', "draggable": true } }
 const defLine = { "className": "Line", "attrs": { points: [0, 0, 100, 0], "y": 10, "stroke": "black", "strokeWidth": 5, "draggable": true } }
@@ -50,7 +59,7 @@ const def = {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
           "children": [
-            defText
+            defText, fontAwesomeHeart
           ],
         }]
     }]
@@ -72,6 +81,16 @@ export const createStore = (key: string) => {
       data: loadData(key)
     }),
     const: {
+      fontFamilies: [
+        { label: 'ゴシック', value: family.gothic },
+        { label: '明朝', value: family.serif },
+        { label: 'Font Awesome', value: family.fontawesome }
+      ],
+      fontStyles: [
+        { label: 'solid', value: faWeight.solid },
+        { label: 'regular', value: faWeight.regular },
+        { label: 'light', value: faWeight.light }
+      ],
       layerIndex: 0,
       bgImageGroupIndex: 0,
       frameGroupIndex: 1,
