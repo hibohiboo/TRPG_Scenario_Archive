@@ -1,26 +1,32 @@
 <template>
-  <Udoncard />
+  <div>
+    <h3>カード表</h3>
+    <FrontTemplate />
+  </div>
+  <div>
+    <h3>カード裏</h3>
+    <BackTemplate />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Udoncard from './components/organisms/Udoncard.vue';
-
+import BackTemplate from './components/cards/back/Udoncard.vue';
+import FrontTemplate from './components/cards/front/Udoncard.vue';
+// TODO: BackとFrontほとんど同じなのでリファクタリングしたい
 export default defineComponent({
   name: 'App',
   components: {
-    Udoncard,
+    BackTemplate,
+    FrontTemplate,
   },
 });
 </script>
 
 <style>
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+
     color: #2c3e50;
-    margin-top: 60px;
+
   }
 </style>
