@@ -13,9 +13,9 @@ export const setup = () => {
   }
 
   // watchEffectだと #konva-container が描画される前に動いてしまう
-  // watch(() => cloneDeep(data), (d) => {
-  //   draw(d, updateData);
-  // }, { deep: true });
+  watch(() => cloneDeep(data), (d) => {
+    draw(d, updateData);
+  });
 
   onMounted(() => {
     draw(data, updateData);
