@@ -59,7 +59,7 @@ export const saveData = (data: string) => {
   console.log('save', data)
   localStorage.setItem(key, data)
 }
-export const loadData = (): ContainerConfig => {
+export const loadData = (key: string): ContainerConfig => {
   const json = localStorage.getItem(key)
   console.log('load', json)
   if (!json) return def
@@ -69,7 +69,7 @@ export const loadData = (): ContainerConfig => {
 export const createStore = () => {
   const store = {
     state: reactive({
-      data: loadData()
+      data: loadData(key)
     }),
     const: {
       layerIndex: 0,
