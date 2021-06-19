@@ -6,7 +6,7 @@ const defaultHeight = 342;
 const defText = { "className": "Text", "attrs": { "fontSize": 14, "text": "test", "fill": "black", "draggable": true } }
 const baseRect = { "className": "Rect", "attrs": { "width": defaultWidth, "height": defaultHeight, "stroke": "black", "strokeWidth": 1, "cornerRadius": 10 } }
 const defRect = { "className": "Rect", "attrs": { "width": 50, "height": 50, "stroke": "black", "strokeWidth": 1, "fill": 'white', "draggable": true } }
-
+const defImage = { "className": "Image", "attrs": { "scaleX": 1.0, "scaleY": 1.0, "draggable": true } }
 const def = {
   "className": "Stage",
   "attrs": { "width": defaultWidth, "height": defaultHeight },
@@ -18,9 +18,7 @@ const def = {
         {
           "className": "Group",
           "attrs": { "x": 0, "y": 0 },
-          "children": [
-            { "className": "Image", "attrs": { "scaleX": 1.0, "scaleY": 1.0 } }
-          ],
+          "children": [{ "className": "Image", "attrs": { "scaleX": 1.0, "scaleY": 1.0 } }],
         },
         {
           "className": "Group",
@@ -29,6 +27,11 @@ const def = {
             baseRect,
             defRect
           ],
+        },
+        {
+          "className": "Group",
+          "attrs": { "x": 0, "y": 0 },
+          "children": [],
         },
         {
           "className": "Group",
@@ -59,7 +62,8 @@ export const createStore = () => {
       layerIndex: 0,
       bgImageGroupIndex: 0,
       frameGroupIndex: 1,
-      textGroupIndex: 2,
+      imageGroupIndex: 2,
+      textGroupIndex: 3,
     },
     addNewText() {
       this.state
@@ -114,7 +118,7 @@ export const createStore = () => {
       reader.readAsDataURL(event.files[0]);
 
     },
-    setScale(event: any) {
+    setBgImageScale(event: any) {
       console.log('set', event.target.value)
       const scale = Number(event.target.value)
       if (isNaN(scale)) return;
@@ -131,7 +135,41 @@ export const createStore = () => {
         .children[0].attrs.scaleX = scale
       item.scaleY = scale
       console.log('scale', item)
-    }
+    },
+    addNewImage() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.imageGroupIndex]
+        .children.push(defImage)
+    },
+    deleteImage() {
+      this.state
+        .data
+        .children[this.const.layerIndex]
+        .children[this.const.imageGroupIndex]
+        .children.pop()
+    },
+    setImageScale(event: any, item: any) {
+      const scale = Number(event.target.value)
+      if (isNaN(scale)) return;
+      item.attrs.scaleX = scale
+      item.attrs.scaleY = scale
+    },
+    imageUploader(event: { originalEvent: Event, files: File[] }, item: any) {
+      const reader = new FileReader()
+      reader.onloadend = async () => {
+        if (reader.result) {
+          const url = reader.result.toString()
+          const image = new window.Image()
+          image.src = url
+          item.attrs.image = image
+          return
+        }
+        console.log('read failed');
+      }
+      reader.readAsDataURL(event.files[0]);
+    },
   };
   return store;
 }

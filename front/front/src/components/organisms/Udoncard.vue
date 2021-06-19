@@ -24,6 +24,7 @@
               />
             </label>
             <p>背景画像</p>
+            <p>※画像は保存されません</p>
             <FileUpload
               :file-limit="1"
               name="bg[]"
@@ -31,7 +32,7 @@
               choose-label="画像選択"
               :show-cancel-button="false"
               :show-upload-button="false"
-              @select="(event, files)=>store.bgImageUploader(event)"
+              @select="(event)=>store.bgImageUploader(event)"
             >
               <template #empty>
                 <p>画像ファイルをドラッグアンドドロップしてください.</p>
@@ -47,7 +48,7 @@
                   .children[0].attrs.scaleX"
                 type="number"
                 step="0.1"
-                @input="(event)=>store.setScale(event)"
+                @input="(event)=>store.setBgImageScale(event)"
               />
             </label>
           </div>
@@ -184,8 +185,56 @@
             <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteFrame()" />
           </div>
         </AccordionTab>
-        <AccordionTab header="Header III">
-          Content
+        <AccordionTab header="画像">
+          <p>※画像は保存されません</p>
+          <div v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.imageGroupIndex].children" :key="item" class="sa-edit-item">
+            <FileUpload
+              :file-limit="1"
+              name="image[]"
+              accept="image/*"
+              choose-label="画像選択"
+              :show-cancel-button="false"
+              :show-upload-button="false"
+              @select="(event)=>store.imageUploader(event, item)"
+            >
+              <template #empty>
+                <p>画像ファイルをドラッグアンドドロップしてください.</p>
+              </template>
+            </FileUpload>
+            <details>
+              <summary>位置</summary>
+              <label style="display:block">
+                x:
+                <InputText
+                  v-model.number="item.attrs.x"
+                  type="number"
+                />
+              </label>
+              <label style="display:block">
+                y:
+                <InputText
+                  v-model.number="item.attrs.y"
+                  type="number"
+                />
+              </label>
+            </details>
+            <details>
+              <summary>詳細</summary>
+              <label style="display:block">
+                拡大:
+                <InputText
+                  :model-value="item.attrs.scaleX"
+                  type="number"
+                  step="0.1"
+                  @input="(event)=>store.setImageScale(event, item)"
+                />
+              </label>
+            </details>
+          </div>
+          <div class="sa-edit-item-footer">
+            <Button label="追加" icon="pi pi-plus" icon-pos="right" @click="()=>store.addNewImage()" />
+            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteImage()" />
+          </div>
         </AccordionTab>
       </Accordion>
     </div>
