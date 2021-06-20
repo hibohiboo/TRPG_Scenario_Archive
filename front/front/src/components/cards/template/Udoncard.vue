@@ -4,7 +4,7 @@
       <div :id="containerId" />
     </div>
     <div style="margin-left: 10px;">
-      <Accordion :active-index="1">
+      <Accordion>
         <AccordionTab header="全体設定">
           <div class="sa-edit-item">
             <label style="display:block">
@@ -327,9 +327,14 @@ export default defineComponent({
   components: {
     Textarea, Accordion, AccordionTab, Button, FileUpload, Dropdown,
   },
-  setup: () => {
-    const containerId = 'template-card-back';
-    const store = createStore(containerId);
+  props: {
+    containerId: {
+      type: String,
+      required: true,
+    },
+  },
+  setup: (props) => {
+    const store = createStore(props.containerId);
 
     const updateData = (d: ContainerConfig) => {
       store.state.data = d;
@@ -338,15 +343,14 @@ export default defineComponent({
     // watchEffectだと #konva-container が描画される前に動いてしまう
     // watchにオブジェクトの変化を認識させるために、cloneDeepが必要
     watch(() => cloneDeep(store.state), (s) => {
-      draw(containerId, s.data, updateData);
+      draw(props.containerId, s.data, updateData);
     });
 
     onMounted(() => {
-      draw(containerId, store.state.data, updateData);
+      draw(props.containerId, store.state.data, updateData);
     });
     return {
       store,
-      containerId,
     };
   },
 });
