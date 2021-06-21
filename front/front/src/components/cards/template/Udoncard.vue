@@ -351,7 +351,6 @@ export default defineComponent({
     });
     return {
       store,
-      setImageScale: (value:string)=>
     };
   },
 });
