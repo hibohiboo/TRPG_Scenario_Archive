@@ -30,16 +30,18 @@ export namespace MimeType {
     mpeg: 'video/mpeg',
     mp4: 'video/mp4',
     webm: 'video/webm',
-  }
+  } as const
+  type TypesKeys = keyof (typeof types)
+  const isTypesKey = (a: string): a is TypesKeys => types.hasOwnProperty(a)
 
   export function type(fileName: string): string {
     const ext = fileName.replace(/.*[./\\]/, '').toLowerCase()
-    return types[ext] ? types[ext] : ''
+    return isTypesKey(ext) ? types[ext] : ''
   }
 
   export function extension(mimeType: string): string {
     for (const key in types) {
-      if (types[key] === mimeType) {
+      if (isTypesKey(key) && types[key] === mimeType) {
         return key
       }
     }

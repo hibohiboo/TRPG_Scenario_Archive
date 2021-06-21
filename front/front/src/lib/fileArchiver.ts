@@ -1,15 +1,16 @@
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
+import { reject } from 'lodash';
 
 export class FileArchiver {
   private static _instance: FileArchiver
   static get instance(): FileArchiver {
     if (!FileArchiver._instance) FileArchiver._instance = new FileArchiver()
-    return FileArchiver._instance
+    return FileArchiver._instance;
   }
-  save(files: File[], zipName: string)
-  save(files: FileList, zipName: string)
-  save(files: any, zipName: string) {
+  save(files: File[], zipName: string): void
+  save(files: FileList, zipName: string): void
+  save(files: any, zipName: string): void {
     if (!files) return
 
     const zip = new JSZip()
@@ -72,9 +73,10 @@ export const createImgBlob = async (img: HTMLImageElement) => {
   canvas.width = img.width
   canvas.height = img.height
   const context = canvas.getContext('2d')
+  if (!context) return;
   context.drawImage(img, 0, 0)
   const blob = await new Promise<Blob>((resolve) =>
-    canvas.toBlob((blob) => resolve(blob)),
+    canvas.toBlob((b) => b ? resolve(b) : reject(b)),
   )
   return blob
 }

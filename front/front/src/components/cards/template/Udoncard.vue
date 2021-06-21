@@ -290,7 +290,7 @@
                   :model-value="item.attrs.scaleX"
                   type="number"
                   step="0.1"
-                  @input="(event)=>store.setImageScale(event, item)"
+                  @input="(event) => store.setImageScale(event, item)"
                 />
               </label>
             </details>
