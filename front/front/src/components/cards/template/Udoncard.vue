@@ -55,7 +55,7 @@
         <AccordionTab header="テキスト">
           <div v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.textGroupIndex].children" :key="item" class="sa-edit-item">
             <Textarea v-model="item.attrs.text" :auto-resize="true" />
-            <details>
+            <details :open="pointsOpen" @toggle="togglePointsOpen">
               <summary>位置</summary>
               <label style="display:block">
                 x:
@@ -72,7 +72,7 @@
                 />
               </label>
             </details>
-            <details>
+            <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細</summary>
               <label style="display:block">
                 サイズ:
@@ -134,7 +134,7 @@
                 min="0"
               />
             </label>
-            <details>
+            <details :open="pointsOpen" @toggle="togglePointsOpen">
               <summary>位置</summary>
               <label style="display:block">
                 x:
@@ -151,7 +151,7 @@
                 />
               </label>
             </details>
-            <details>
+            <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細設定</summary>
               <label style="display:block">
                 枠線幅:
@@ -208,7 +208,7 @@
                 min="0"
               />
             </label>
-            <details>
+            <details :open="pointsOpen" @toggle="togglePointsOpen">
               <summary>位置</summary>
               <label style="display:block">
                 x:
@@ -225,7 +225,7 @@
                 />
               </label>
             </details>
-            <details>
+            <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細設定</summary>
               <label style="display:block">
                 枠線幅:
@@ -265,7 +265,7 @@
                 <p>画像ファイルをドラッグアンドドロップしてください.</p>
               </template>
             </FileUpload>
-            <details>
+            <details :open="pointsOpen" @toggle="togglePointsOpen">
               <summary>位置</summary>
               <label style="display:block">
                 x:
@@ -282,7 +282,7 @@
                 />
               </label>
             </details>
-            <details>
+            <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細</summary>
               <label style="display:block">
                 拡大:
@@ -308,7 +308,7 @@
 <script lang="ts">
 /* eslint-disable import/no-unresolved */
 import {
-  defineComponent, onMounted, watch,
+  defineComponent, onMounted, ref, watch,
 } from 'vue';
 import Textarea from 'primevue/textarea';
 import Accordion from 'primevue/accordion';
@@ -349,10 +349,21 @@ export default defineComponent({
     onMounted(() => {
       draw(props.containerId, store.state.data, updateData);
     });
+
+    // detailsの開いている状態を管理
+    const pointsOpen = ref(false);
+    const togglePointsOpen = (event: any) => { pointsOpen.value = event.target.open; };
+    const detailOpen = ref(false);
+    const toggleDetailsOpen = (event: any) => { detailOpen.value = event.target.open; };
     return {
       store,
+      pointsOpen,
+      togglePointsOpen,
+      detailOpen,
+      toggleDetailsOpen,
     };
   },
+
 });
 </script>
 
