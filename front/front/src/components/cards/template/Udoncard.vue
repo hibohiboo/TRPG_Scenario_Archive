@@ -71,6 +71,10 @@
                   type="number"
                 />
               </label>
+              <label style="display:block">
+                <input v-model="item.attrs.draggable" type="checkbox">
+                ドラッグ可
+              </label>
             </details>
             <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細</summary>
@@ -150,6 +154,10 @@
                   type="number"
                 />
               </label>
+              <label style="display:block">
+                <input v-model="item.attrs.draggable" type="checkbox">
+                ドラッグ可
+              </label>
             </details>
             <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細設定</summary>
@@ -224,6 +232,10 @@
                   type="number"
                 />
               </label>
+              <label style="display:block">
+                <input v-model="item.attrs.draggable" type="checkbox">
+                ドラッグ可
+              </label>
             </details>
             <details :open="detailOpen" @toggle="toggleDetailsOpen">
               <summary>詳細設定</summary>
@@ -280,6 +292,10 @@
                   v-model.number="item.attrs.y"
                   type="number"
                 />
+              </label>
+              <label style="display:block">
+                <input v-model="item.attrs.draggable" type="checkbox">
+                ドラッグ可
               </label>
             </details>
             <details :open="detailOpen" @toggle="toggleDetailsOpen">
