@@ -3,7 +3,7 @@
     <div>
       <div :id="containerId" />
     </div>
-    <div style="margin-left: 10px;">
+    <div class="sa-edit-area" :style="{height:`${store.state.data.attrs.height}px`}">
       <Accordion>
         <AccordionTab header="全体設定">
           <div class="sa-edit-item">
@@ -357,6 +357,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.sa-edit-area{
+margin-left: 10px;
+overflow: auto;
+width: 300px;
+
+}
   .sa-ly-width{
     width: 80%;
     margin-left:auto;
