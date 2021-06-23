@@ -4,7 +4,10 @@
     <div>
       <Button label="ユドナリウム用zipダウンロード" @click="zipHandler" />
     </div>
-    <Textarea v-model="csv" :auto-resize="true" cols="50" />
+    <details open>
+      <summary>CSV入力</summary>
+      <Textarea v-model="csv" :auto-resize="true" cols="50" />
+    </details>
     <div v-for="(item, index) in csv.split('\n')" :key="index" class="p-d-flex">
       <div :id="`${frontId}-${index}`" />
       <div :id="`${backId}-${index}`" />

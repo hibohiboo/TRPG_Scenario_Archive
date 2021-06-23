@@ -258,7 +258,7 @@
           </div>
           <div class="sa-edit-item-footer">
             <Button label="追加" icon="pi pi-plus" icon-pos="right" @click="()=>store.addNewLine()" />
-            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.addNewLine()" />
+            <Button label="削除" icon="pi pi-minus" icon-pos="right" style="margin-left: 2rem;" class=" p-button-danger" @click="()=>store.deleteLine()" />
           </div>
         </AccordionTab>
         <AccordionTab header="画像">
