@@ -335,7 +335,7 @@ import FileUpload from 'primevue/fileupload';
 import Dropdown from 'primevue/dropdown';
 import { cloneDeep } from 'lodash';
 import { ContainerConfig } from 'konva/lib/Container';
-import { createStore, loadBackgroundImage } from '@/domain/cards/store';
+import { createStore, loadBackgroundImage, loadImages } from '@/domain/cards/store';
 import { draw } from '@/domain/cards/draw';
 
 export default defineComponent({
@@ -365,6 +365,7 @@ export default defineComponent({
     onMounted(() => {
       const { data } = store.state;
       loadBackgroundImage(props.containerId, data);
+      loadImages(props.containerId, data);
       draw(props.containerId, data, updateData);
     });
 

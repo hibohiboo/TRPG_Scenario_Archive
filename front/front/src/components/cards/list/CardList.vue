@@ -26,7 +26,7 @@ import Textarea from 'primevue/textarea';
 import { draw } from '@/domain/cardList/draw';
 // eslint-disable-next-line import/no-unresolved
 import { createZip } from '@/domain/cardList/udonEvent';
-import { BACK_GROUND_IMAGE_GROUP_INDEX, CARD_LAYER_INDEX, loadBackgroundImage } from '@/domain/cards/store';
+import { loadBackgroundImage, loadImages } from '@/domain/cards/store';
 
 const pc1 = 'PC1,校門で君は気づいた。\\n外に出られない。赤い赤い夕焼け空。長い長い黒い影。誰もいないグラウンド。音のしない校舎。風のない蒸し暑い空気。時計は 4 時 44 分 44 秒.校門に集まっているやつらの誰も、帰り方を知らない。君も分からない。君の使命は【家に帰る】ことである。,なし,秘密を見てはならない。';
 const pc2 = 'PC2,校門で君は気づいた。\\n外に出られない。赤い赤い夕焼け空。長い長い黒い影。誰もいないグラウンド。音のしない校舎。風のない蒸し暑い空気。時計は 4 時 44 分 44 秒.校門に集まっているやつらの誰も、帰り方を知らない。君も分からない。君の使命は【家に帰る】ことである。,なし,秘密を見てはならない。';
@@ -46,6 +46,7 @@ const drawImage = (key:string, row:string, index:number) => {
   if (card) {
     const cardData = JSON.parse(replacePlaceHolder(row, card));
     loadBackgroundImage(key, cardData);
+    loadImages(key, cardData);
 
     draw(`${key}-${index}`, cardData);
   }
@@ -65,10 +66,7 @@ export default defineComponent({
         localStorage.setItem(csvKey, csv.value);
         csv.value.split('\n').forEach((row, index) => {
           drawImage(backId, row, index);
-          const front = localStorage.getItem(frontId);
-          if (front) {
-            draw(`${frontId}-${index}`, JSON.parse(replacePlaceHolder(row, front)));
-          }
+          drawImage(frontId, row, index);
         });
       });
     });

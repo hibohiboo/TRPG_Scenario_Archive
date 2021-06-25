@@ -98,14 +98,14 @@ const saveImage = (key: string, data: { url: string }, index: number) => {
     sessionStorage.setItem(imageKey, JSON.stringify(images))
     return;
   }
-  sessionStorage.setItem(imageKey, JSON.stringify(images.push(data)))
+  sessionStorage.setItem(imageKey, JSON.stringify([...images, data]))
 }
 const saveBackgroundImage = (key: string, data: { url: string }) => {
   sessionStorage.setItem(`${key}-bg-image`, JSON.stringify(data))
 }
 export const loadBackgroundImage = (key: string, data: any) => {
   const item = sessionStorage.getItem(`${key}-bg-image`)
-  console.log(key, item)
+
   if (item) {
     const url = JSON.parse(item).url;
     if (!url) return;
@@ -115,6 +115,26 @@ export const loadBackgroundImage = (key: string, data: any) => {
       .children[CARD_LAYER_INDEX]
       .children[BACK_GROUND_IMAGE_GROUP_INDEX]
       .children[0].attrs.image = image;
+  }
+
+  return
+}
+
+export const loadImages = (key: string, data: any) => {
+  const item = sessionStorage.getItem(`${key}-images`)
+
+  if (item) {
+    const items = JSON.parse(item) as { url: string }[];
+    if (!items) return;
+
+    data
+      .children[CARD_LAYER_INDEX]
+      .children[IMAGE_GROUP_INDEX]
+      .children.forEach((obj: any, index: number) => {
+        const image = new window.Image();
+        image.src = items[index].url;
+        obj.attrs.image = image;
+      })
   }
 
   return
