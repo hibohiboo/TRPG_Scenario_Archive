@@ -271,7 +271,7 @@ export const createStore = (key: string) => {
       item.attrs.scaleX = scale
       item.attrs.scaleY = scale
     },
-    imageUploader(event: { originalEvent: Event, files: File[] }, item: any, index: number) {
+    imageUploader(event: { originalEvent: Event, files: File[] }, item: any, index: any) {
       const reader = new FileReader()
       reader.onloadend = async () => {
         if (reader.result) {

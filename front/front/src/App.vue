@@ -26,7 +26,6 @@ import { defineComponent } from 'vue';
 import Dropdown from 'primevue/dropdown';
 import CardTemplate from './components/cards/template/Udoncard.vue';
 import CardList from './components/cards/list/CardList.vue';
-import { resetStorages } from './domain/cards/store';
 import {
   lostCsv, lostFront, lostBack, lostBackImage,
 } from './domain/lostrpg/template';
@@ -52,7 +51,7 @@ export default defineComponent({
             localStorage.setItem('sa-csv-key', lostCsv);
             sessionStorage.setItem('template-card-back-images', JSON.stringify(lostBackImage));
             break;
-          default: resetStorages();
+          default: localStorage.clear(); sessionStorage.clear();
         }
         window.location.reload();
       },
