@@ -263,7 +263,7 @@
         </AccordionTab>
         <AccordionTab header="画像">
           <p>※画像は保存されません</p>
-          <div v-for="item in store.state.data.children[store.const.layerIndex].children[store.const.imageGroupIndex].children" :key="item" class="sa-edit-item">
+          <div v-for="(item, index) in store.state.data.children[store.const.layerIndex].children[store.const.imageGroupIndex].children" :key="item" class="sa-edit-item">
             <FileUpload
               :file-limit="1"
               name="image[]"
@@ -271,7 +271,7 @@
               choose-label="画像選択"
               :show-cancel-button="false"
               :show-upload-button="false"
-              @select="(event)=>store.imageUploader(event, item)"
+              @select="(event)=>store.imageUploader(event, item, index)"
             >
               <template #empty>
                 <p>画像ファイルをドラッグアンドドロップしてください.</p>

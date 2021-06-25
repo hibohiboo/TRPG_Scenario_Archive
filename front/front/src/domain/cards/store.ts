@@ -84,6 +84,38 @@ export const loadData = (key: string): ContainerConfig => {
   return JSON.parse(json)
 }
 
+const saveImage = (key: string, data: { url: string }, index: number) => {
+  const imageKey = `${key}-images`;
+  const json = sessionStorage.getItem(imageKey)
+  if (!json) {
+    sessionStorage.setItem(imageKey, JSON.stringify([data]))
+    return
+  }
+  const images = JSON.parse(json);
+  if (index < images.length) {
+    images[index] = data
+    sessionStorage.setItem(imageKey, JSON.stringify(images))
+    return;
+  }
+  sessionStorage.setItem(imageKey, JSON.stringify(images.push(data)))
+}
+const saveBackgroundImage = (key: string, data: { url: string }) => {
+  sessionStorage.setItem(`${key}-bg-image`, JSON.stringify(data))
+}
+export const loadBackgroundImage = (key: string) => {
+  const item = sessionStorage.getItem(`${key}-bg-image`)
+  console.log(key, item)
+  if (item) {
+    return JSON.parse(item).url;
+  }
+  return null
+}
+
+export const CARD_LAYER_INDEX = 0;
+export const BACK_GROUND_IMAGE_GROUP_INDEX = 0;
+export const IMAGE_GROUP_INDEX = 3;
+
+
 export const createStore = (key: string) => {
   const store = {
     state: reactive({
@@ -100,11 +132,11 @@ export const createStore = (key: string) => {
         { label: 'regular', value: faWeight.regular },
         { label: 'light', value: faWeight.light }
       ],
-      layerIndex: 0,
-      bgImageGroupIndex: 0,
+      layerIndex: CARD_LAYER_INDEX,
+      bgImageGroupIndex: BACK_GROUND_IMAGE_GROUP_INDEX,
       frameGroupIndex: 1,
       lineGroupIndex: 2,
-      imageGroupIndex: 3,
+      imageGroupIndex: IMAGE_GROUP_INDEX,
       textGroupIndex: 4,
     },
     addNewText() {
@@ -161,6 +193,7 @@ export const createStore = (key: string) => {
           const url = reader.result.toString()
           const image = new window.Image()
           image.src = url
+          saveBackgroundImage(key, { url });
 
           this.state
             .data
@@ -175,10 +208,8 @@ export const createStore = (key: string) => {
 
     },
     setBgImageScale(event: any) {
-      console.log('set', event.target.value)
       const scale = Number(event.target.value)
       if (isNaN(scale)) return;
-      console.log('scale', scale)
       const item = this.state
         .data
         .children[this.const.layerIndex]
@@ -190,7 +221,6 @@ export const createStore = (key: string) => {
         .children[this.const.bgImageGroupIndex]
         .children[0].attrs.scaleX = scale
       item.scaleY = scale
-      console.log('scale', item)
     },
     addNewImage() {
       this.state
@@ -212,7 +242,7 @@ export const createStore = (key: string) => {
       item.attrs.scaleX = scale
       item.attrs.scaleY = scale
     },
-    imageUploader(event: { originalEvent: Event, files: File[] }, item: any) {
+    imageUploader(event: { originalEvent: Event, files: File[] }, item: any, index: number) {
       const reader = new FileReader()
       reader.onloadend = async () => {
         if (reader.result) {
@@ -220,6 +250,7 @@ export const createStore = (key: string) => {
           const image = new window.Image()
           image.src = url
           item.attrs.image = image
+          saveImage(key, { url })
           return
         }
         console.log('read failed');
