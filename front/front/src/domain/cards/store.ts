@@ -74,6 +74,7 @@ export const loadData = (key: string): ContainerConfig => {
   if (!json) {
 
     if (key === 'template-card-front') {
+      const lost = { "attrs": { "width": 242, "height": 342 }, "className": "Stage", "children": [{ "attrs": {}, "className": "Layer", "children": [{ "attrs": {}, "className": "Group", "children": [{ "attrs": {}, "className": "Image" }] }, { "attrs": {}, "className": "Group", "children": [{ "attrs": { "width": 242, "height": 342, "stroke": "black", "strokeWidth": 5, "cornerRadius": 10, "fill": "#ffffff" }, "className": "Rect" }, { "attrs": { "width": 222, "height": 300, "stroke": "black", "strokeWidth": 1, "fill": "white", "x": 10, "y": 35 }, "className": "Rect" }, { "attrs": { "width": 222, "height": 33, "stroke": "black", "strokeWidth": 1, "fill": "white", "x": 10, "y": 35 }, "className": "Rect" }] }, { "attrs": {}, "className": "Group", "children": [{ "attrs": { "points": [0, 0, 33, 0], "y": 36, "stroke": "black", "strokeWidth": 1, "x": 91, "rotation": 90 }, "className": "Line" }, { "attrs": { "points": [0, 0, 222, 0], "y": 90, "stroke": "black", "strokeWidth": 1, "x": 10 }, "className": "Line" }] }, { "attrs": {}, "className": "Group", "children": [] }, { "attrs": {}, "className": "Group", "children": [{ "attrs": { "fontSize": 21, "text": "$1", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "900", "y": 10, "align": "center", "width": 240 }, "className": "Text" }, { "attrs": { "fontSize": 16, "text": "指定特技", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "400", "x": 16, "y": 43 }, "className": "Text" }, { "attrs": { "fontSize": 18, "text": "$2", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "400", "x": 102, "y": 42 }, "className": "Text" }, { "attrs": { "fontSize": 14, "text": "描写", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "400", "x": 100, "y": 72 }, "className": "Text" }, { "attrs": { "fontSize": 18, "text": "$3", "fill": "black", "fontFamily": "\"游明朝\", YuMincho, \"Hiragino Mincho ProN W3\", \"ヒラギノ明朝 ProN W3\", \"Hiragino Mincho ProN\", \"HG明朝E\", \"ＭＳ Ｐ明朝\", \"ＭＳ 明朝\", serif", "fontStyle": "400", "x": 21, "y": 97, "width": 200 }, "className": "Text" }] }] }] }
       return { "attrs": { "width": 242, "height": 342 }, "className": "Stage", "children": [{ "attrs": {}, "className": "Layer", "children": [{ "attrs": {}, "className": "Group", "children": [{ "attrs": {}, "className": "Image" }] }, { "attrs": {}, "className": "Group", "children": [{ "attrs": { "width": 242, "height": 342, "stroke": "black", "strokeWidth": 5, "cornerRadius": 10 }, "className": "Rect" }, { "attrs": { "width": 222, "height": 300, "stroke": "black", "strokeWidth": 1, "fill": "white", "draggable": true, "x": 10, "y": 35 }, "className": "Rect" }, { "attrs": { "width": 222, "height": 33, "stroke": "black", "strokeWidth": 1, "fill": "white", "draggable": true, "x": 10, "y": 35 }, "className": "Rect" }] }, { "attrs": {}, "className": "Group", "children": [{ "attrs": { "points": [0, 0, 33, 0], "y": 36, "stroke": "black", "strokeWidth": 1, "draggable": true, "x": 58, "rotation": 90 }, "className": "Line" }, { "attrs": { "points": [0, 0, 222, 0], "y": 90, "stroke": "black", "strokeWidth": 1, "draggable": true, "x": 10 }, "className": "Line" }] }, { "attrs": {}, "className": "Group", "children": [] }, { "attrs": {}, "className": "Group", "children": [{ "attrs": { "fontSize": 21, "text": "Handout", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "900", "draggable": true, "x": 72, "y": 10 }, "className": "Text" }, { "attrs": { "fontSize": 16, "text": "名前", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "400", "draggable": true, "x": 16, "y": 43 }, "className": "Text" }, { "attrs": { "fontSize": 16, "text": "$1", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "400", "draggable": true, "x": 66, "y": 42 }, "className": "Text" }, { "attrs": { "fontSize": 14, "text": "使命", "fill": "black", "fontFamily": "\"Hiragino Sans W3\", \"Hiragino Kaku Gothic ProN\", \"ヒラギノ角ゴ ProN W3\", \"メイリオ\", Meiryo, \"ＭＳ Ｐゴシック\", \"MS PGothic\", sans-serif", "fontStyle": "400", "draggable": true, "x": 100, "y": 72 }, "className": "Text" }, { "attrs": { "fontSize": 14, "text": "$2", "fill": "black", "fontFamily": "\"游明朝\", YuMincho, \"Hiragino Mincho ProN W3\", \"ヒラギノ明朝 ProN W3\", \"Hiragino Mincho ProN\", \"HG明朝E\", \"ＭＳ Ｐ明朝\", \"ＭＳ 明朝\", serif", "fontStyle": "400", "draggable": true, "x": 21, "y": 97, "width": 200 }, "className": "Text" }] }] }] }
     }
     if (key === 'template-card-back') {
@@ -102,13 +103,21 @@ const saveImage = (key: string, data: { url: string }, index: number) => {
 const saveBackgroundImage = (key: string, data: { url: string }) => {
   sessionStorage.setItem(`${key}-bg-image`, JSON.stringify(data))
 }
-export const loadBackgroundImage = (key: string) => {
+export const loadBackgroundImage = (key: string, data: any) => {
   const item = sessionStorage.getItem(`${key}-bg-image`)
   console.log(key, item)
   if (item) {
-    return JSON.parse(item).url;
+    const url = JSON.parse(item).url;
+    if (!url) return;
+    const image = new window.Image();
+    image.src = url;
+    data
+      .children[CARD_LAYER_INDEX]
+      .children[BACK_GROUND_IMAGE_GROUP_INDEX]
+      .children[0].attrs.image = image;
   }
-  return null
+
+  return
 }
 
 export const CARD_LAYER_INDEX = 0;
@@ -250,7 +259,7 @@ export const createStore = (key: string) => {
           const image = new window.Image()
           image.src = url
           item.attrs.image = image
-          saveImage(key, { url })
+          saveImage(key, { url }, index)
           return
         }
         console.log('read failed');

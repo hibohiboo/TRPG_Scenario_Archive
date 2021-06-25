@@ -335,7 +335,7 @@ import FileUpload from 'primevue/fileupload';
 import Dropdown from 'primevue/dropdown';
 import { cloneDeep } from 'lodash';
 import { ContainerConfig } from 'konva/lib/Container';
-import { createStore } from '@/domain/cards/store';
+import { createStore, loadBackgroundImage } from '@/domain/cards/store';
 import { draw } from '@/domain/cards/draw';
 
 export default defineComponent({
@@ -363,7 +363,9 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      draw(props.containerId, store.state.data, updateData);
+      const { data } = store.state;
+      loadBackgroundImage(props.containerId, data);
+      draw(props.containerId, data, updateData);
     });
 
     // detailsの開いている状態を管理

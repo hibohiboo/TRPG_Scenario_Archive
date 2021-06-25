@@ -45,15 +45,7 @@ const drawImage = (key:string, row:string, index:number) => {
 
   if (card) {
     const cardData = JSON.parse(replacePlaceHolder(row, card));
-    const url = loadBackgroundImage(key);
-    if (url) {
-      const image = new window.Image();
-      image.src = url;
-      cardData
-        .children[CARD_LAYER_INDEX]
-        .children[BACK_GROUND_IMAGE_GROUP_INDEX]
-        .children[0].attrs.image = image;
-    }
+    loadBackgroundImage(key, cardData);
 
     draw(`${key}-${index}`, cardData);
   }
