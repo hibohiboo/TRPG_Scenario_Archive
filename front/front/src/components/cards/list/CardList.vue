@@ -8,6 +8,16 @@
       <summary>CSV入力</summary>
       <Textarea v-model="csv" :auto-resize="true" cols="50" />
     </details>
+    <details>
+      <summary>詳細設定</summary>
+      <label style="display:block">
+        カードサイズ:
+        <InputText
+          v-model.number="size"
+          type="number"
+        />
+      </label>
+    </details>
     <div v-for="(item, index) in csv.split('\n')" :key="index" class="p-d-flex">
       <div :id="`${frontId}-${index}`" />
       <div :id="`${backId}-${index}`" />
@@ -56,6 +66,7 @@ export default defineComponent({
   name: 'CardList',
   components: { Textarea, Button },
   setup() {
+    // カード描画
     const loadCsv = localStorage.getItem(csvKey) || text;
     const csv = ref(loadCsv);
     const backId = 'template-card-back';
@@ -70,8 +81,13 @@ export default defineComponent({
         });
       });
     });
+
+    // ユドナリウム設定
+    const size = ref(2);
+
+    // zip 出力
     const zipHandler = () => {
-      createZip(csv.value.split('\n'));
+      createZip({ list: csv.value.split('\n'), size: size.value });
     };
 
     return {
@@ -79,6 +95,7 @@ export default defineComponent({
       frontId,
       csv,
       zipHandler,
+      size,
     };
   },
 });

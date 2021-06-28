@@ -11,9 +11,12 @@ import { DATETIME_FILE_FORMAT } from '@/lib/constants'
 
 const getCanvasBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
   new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject('error')))
-
-export const createZip = async (list: any[]) => {
-  const files = await createCardStacks(list)
+interface ZipArgs {
+  list: string[],
+  size: number
+}
+export const createZip = async (args: ZipArgs) => {
+  const files = await createCardStacks(args)
 
   FileArchiver.instance.save(files, format(new Date(), DATETIME_FILE_FORMAT))
 }
@@ -22,16 +25,16 @@ const backId = 'template-card-back';
 const frontId = 'template-card-front';
 
 
-const createCardStacks = async (list: any[]) => {
+const createCardStacks = async (args: ZipArgs) => {
   const files: File[] = []
 
-  // 魔法
+
   const mappedList = await Promise.all(
-    list.map(async (c, ci) => {
+    args.list.map(async (c, ci) => {
       const target = document.querySelector(
         `#${backId}-${ci} canvas`,
       ) as HTMLCanvasElement
-      console.log('target', target)
+
       const blob = await getCanvasBlob(target)
       const back = await calcSHA256Async(blob)
       files.push(
@@ -64,7 +67,7 @@ const createCardStacks = async (list: any[]) => {
   )
 
   files.push(
-    createCardStack(`カードリスト`, mappedList),
+    createCardStack(`カードリスト`, mappedList, args),
   )
   return files
 }
@@ -74,6 +77,7 @@ type Card = { back: string, front: string }
 const createCardStack = (
   stackName: string,
   cards: Card[],
+  args: ZipArgs
 ) => {
   const doc = createDoc()
   const cardStackWrapper = createElement(doc, 'card-stack', [
@@ -89,7 +93,7 @@ const createCardStack = (
   ])
 
   cardStackWrapper.appendChild(createCardStackElment(doc, stackName))
-  cardStackWrapper.appendChild(createCardRoot(doc, cards))
+  cardStackWrapper.appendChild(createCardRoot(doc, cards, args))
   doc.appendChild(cardStackWrapper)
   const sXML = convertDocToXML(doc)
   return new File([sXML], `${stackName}.xml`, { type: 'text/plain' })
@@ -117,17 +121,19 @@ const createCardStackElment = (doc: Document, stackName: string) => {
 
 const createCardRoot = (
   doc: Document,
-  cards: Card[]
+  cards: Card[],
+  args: ZipArgs
 ) => {
   const cardRoot = createElement(doc, 'node', [['name', 'cardRoot']])
   cards.forEach((card) =>
-    cardRoot.appendChild(createCard(doc, card)),
+    cardRoot.appendChild(createCard(doc, card, args)),
   )
   return cardRoot
 }
 const createCard = (
   doc: Document,
-  card: Card
+  card: Card,
+  args: ZipArgs
 ) => {
   const cardWrapper = createElement(doc, 'card', [
     ['location.name', 'table'],
@@ -168,7 +174,7 @@ const createCard = (
   image.appendChild(back)
   const common = createElement(doc, 'data', [['name', 'common']])
   const name = createElement(doc, 'data', [['name', 'name']], 'カード')
-  const size = createElement(doc, 'data', [['name', 'size']], '2')
+  const size = createElement(doc, 'data', [['name', 'size']], `${args.size}`)
   const detail = createElement(doc, 'data', [['name', 'detail']])
   image.appendChild(imageIdentifier)
   common.appendChild(name)

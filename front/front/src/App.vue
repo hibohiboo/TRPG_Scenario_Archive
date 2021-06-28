@@ -1,7 +1,7 @@
 <template>
   <div>
     <label>
-      <Dropdown placeholder="テンプレートを選択" :options="[{label: 'デフォルト',value:'default'},{label:'LOSTRPGランダム障害カード',value:'lost'}]" option-label="label" option-value="value" @change="changeTemplate" />
+      <Dropdown placeholder="テンプレートを選択" :options="[{label: 'インセイン',value:'default'},{label:'LOSTRPGランダム障害カード',value:'lost'}]" option-label="label" option-value="value" @change="changeTemplate" />
     </label>
   </div>
   <div class="p-d-flex">
