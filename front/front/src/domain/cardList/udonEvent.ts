@@ -8,6 +8,7 @@ import {
   createElement,
 } from '@/lib/fileArchiver'
 import { DATETIME_FILE_FORMAT } from '@/lib/constants'
+import { replacePlaceHolder } from './placeholder'
 
 const getCanvasBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
   new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject('error')))
@@ -16,6 +17,7 @@ interface ZipArgs {
   size: number,
   cardName: string
   noteTitle: string
+  noteText: string
 }
 export const createZip = async (args: ZipArgs) => {
   const files = await createCardStacks(args)
@@ -32,7 +34,7 @@ const createCardStacks = async (args: ZipArgs) => {
 
 
   const mappedList = await Promise.all(
-    args.list.map(async (c, ci) => {
+    args.list.map(async (text, ci) => {
       const target = document.querySelector(
         `#${backId}-${ci} canvas`,
       ) as HTMLCanvasElement
@@ -63,7 +65,7 @@ const createCardStacks = async (args: ZipArgs) => {
           },
         ),
       )
-      return { back, front }
+      return { back, front, text }
     }),
 
   )
@@ -74,7 +76,7 @@ const createCardStacks = async (args: ZipArgs) => {
   return files
 }
 
-type Card = { back: string, front: string }
+type Card = { back: string, front: string, text: string }
 
 const createCardStack = (
   stackName: string,
@@ -190,7 +192,16 @@ const createCard = (
         ['name', `${args.noteTitle}`],
       ]
     )
-    detail.appendChild(noteTitle)
+    const note = createElement(
+      doc,
+      'data',
+      [
+        ['name', `${args.noteTitle}`],
+        ['type', 'note']
+      ]
+      , replacePlaceHolder(card.text, args.noteText)
+    )
+    detail.appendChild(note)
   }
 
   cardData.appendChild(image)

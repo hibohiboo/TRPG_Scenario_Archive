@@ -18,9 +18,15 @@
         />
       </label>
       <label style="display:block">
-        ノート:
+        ノートタイトル:
         <InputText
           v-model.number="noteTitle"
+        />（ここが空だとノートは出ません）
+      </label>
+      <label style="display:block">
+        ノート本文:
+        <InputText
+          v-model.number="noteText"
         />
       </label>
     </details>
@@ -43,19 +49,15 @@ import { draw } from '@/domain/cardList/draw';
 // eslint-disable-next-line import/no-unresolved
 import { createZip } from '@/domain/cardList/udonEvent';
 import { loadBackgroundImage, loadImages } from '@/domain/cards/store';
+import { replacePlaceHolder } from '@/domain/cardList/placeholder';
 
 const pc1 = 'PC1,校門で君は気づいた。\\n外に出られない。赤い赤い夕焼け空。長い長い黒い影。誰もいないグラウンド。音のしない校舎。風のない蒸し暑い空気。時計は 4 時 44 分 44 秒.校門に集まっているやつらの誰も、帰り方を知らない。君も分からない。君の使命は【家に帰る】ことである。,なし,秘密を見てはならない。';
 const pc2 = 'PC2,校門で君は気づいた。\\n外に出られない。赤い赤い夕焼け空。長い長い黒い影。誰もいないグラウンド。音のしない校舎。風のない蒸し暑い空気。時計は 4 時 44 分 44 秒.校門に集まっているやつらの誰も、帰り方を知らない。君も分からない。君の使命は【家に帰る】ことである。,なし,秘密を見てはならない。';
 const text = `${pc1}
 ${pc2}`;
 const csvKey = 'sa-csv-key';
-const replacePlaceHolder = (str:string, json:string) => {
-  let result = json;
-  str.split(',').forEach((t, i) => {
-    result = result.replaceAll(new RegExp(`\\$${i + 1}`, 'g'), t);
-  });
-  return result;
-};
+const configKey = 'sa-udonarium-card-config';
+
 const drawImage = (key:string, row:string, index:number) => {
   const card = localStorage.getItem(key);
 
@@ -87,7 +89,7 @@ export default defineComponent({
         });
       });
     });
-    const cardConfigStr = localStorage.getItem('sa-udonarium-card-config');
+    const cardConfigStr = localStorage.getItem(configKey);
     const cardConfig = cardConfigStr ? JSON.parse(cardConfigStr) : {
       size: 2,
       cardName: 'カード',
@@ -102,11 +104,16 @@ export default defineComponent({
     const cardName = ref(cardConfig.cardName);
     // ノート
     const noteTitle = ref(cardConfig.noteTitle);
+    const noteText = ref(cardConfig.noteText);
 
     // zip 出力
     const zipHandler = () => {
       createZip({
-        list: csv.value.split('\n'), size: size.value, cardName: cardName.value, noteTitle: noteTitle.value,
+        list: csv.value.split('\n'),
+        size: size.value,
+        cardName: cardName.value,
+        noteTitle: noteTitle.value,
+        noteText: noteText.value,
       });
     };
 
@@ -118,6 +125,7 @@ export default defineComponent({
       size,
       cardName,
       noteTitle,
+      noteText,
     };
   },
 });

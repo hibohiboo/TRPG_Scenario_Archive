@@ -27,7 +27,7 @@ import Dropdown from 'primevue/dropdown';
 import CardTemplate from './components/cards/template/Udoncard.vue';
 import CardList from './components/cards/list/CardList.vue';
 import {
-  lostCsv, lostFront, lostBack, lostBackImage,
+  lostCsv, lostFront, lostBack, lostBackImage, lostUdonArgs,
 } from './domain/lostrpg/template';
 
 export default defineComponent({
@@ -49,6 +49,7 @@ export default defineComponent({
             localStorage.setItem('template-card-front', JSON.stringify(lostFront));
             localStorage.setItem('template-card-back', JSON.stringify(lostBack));
             localStorage.setItem('sa-csv-key', lostCsv);
+            localStorage.setItem('sa-udonarium-card-config', JSON.stringify(lostUdonArgs));
             sessionStorage.setItem('template-card-back-images', JSON.stringify(lostBackImage));
             break;
           default: localStorage.clear(); sessionStorage.clear();
