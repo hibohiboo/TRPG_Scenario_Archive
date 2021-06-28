@@ -17,6 +17,12 @@
           type="number"
         />
       </label>
+      <label style="display:block">
+        ノート:
+        <InputText
+          v-model.number="noteTitle"
+        />
+      </label>
     </details>
     <div v-for="(item, index) in csv.split('\n')" :key="index" class="p-d-flex">
       <div :id="`${frontId}-${index}`" />
@@ -81,13 +87,27 @@ export default defineComponent({
         });
       });
     });
+    const cardConfigStr = localStorage.getItem('sa-udonarium-card-config');
+    const cardConfig = cardConfigStr ? JSON.parse(cardConfigStr) : {
+      size: 2,
+      cardName: 'カード',
+      noteTitle: '',
+      noteTag: '',
+      noteText: '',
+    };
 
     // ユドナリウム設定
-    const size = ref(2);
+    const size = ref(cardConfig.size);
+    // 表のみ。裏返したときはカードのまま
+    const cardName = ref(cardConfig.cardName);
+    // ノート
+    const noteTitle = ref(cardConfig.noteTitle);
 
     // zip 出力
     const zipHandler = () => {
-      createZip({ list: csv.value.split('\n'), size: size.value });
+      createZip({
+        list: csv.value.split('\n'), size: size.value, cardName: cardName.value, noteTitle: noteTitle.value,
+      });
     };
 
     return {
@@ -96,6 +116,8 @@ export default defineComponent({
       csv,
       zipHandler,
       size,
+      cardName,
+      noteTitle,
     };
   },
 });

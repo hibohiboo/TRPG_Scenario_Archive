@@ -13,7 +13,9 @@ const getCanvasBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
   new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject('error')))
 interface ZipArgs {
   list: string[],
-  size: number
+  size: number,
+  cardName: string
+  noteTitle: string
 }
 export const createZip = async (args: ZipArgs) => {
   const files = await createCardStacks(args)
@@ -172,13 +174,25 @@ const createCard = (
   image.appendChild(imageIdentifier)
   image.appendChild(front)
   image.appendChild(back)
+
   const common = createElement(doc, 'data', [['name', 'common']])
-  const name = createElement(doc, 'data', [['name', 'name']], 'カード')
+  const name = createElement(doc, 'data', [['name', 'name']], `${args.cardName}`)
   const size = createElement(doc, 'data', [['name', 'size']], `${args.size}`)
   const detail = createElement(doc, 'data', [['name', 'detail']])
   image.appendChild(imageIdentifier)
   common.appendChild(name)
   common.appendChild(size)
+  if (args.noteTitle) {
+    const noteTitle = createElement(
+      doc,
+      'data',
+      [
+        ['name', `${args.noteTitle}`],
+      ]
+    )
+    detail.appendChild(noteTitle)
+  }
+
   cardData.appendChild(image)
   cardData.appendChild(common)
   cardData.appendChild(detail)
