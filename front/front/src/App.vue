@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div><input v-model="a" type="number"></div>
+    <div><canvas id="myChart" width="400" height="400" /></div>
+
     <label>
       <Dropdown placeholder="テンプレートを選択" :options="[{label: 'インセイン',value:'default'},{label:'LOSTRPGランダム障害カード',value:'lost'}]" option-label="label" option-value="value" @change="changeTemplate" />
     </label>
@@ -22,13 +25,62 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {
+  defineComponent, onMounted, onUpdated, ref, watchEffect,
+} from 'vue';
 import Dropdown from 'primevue/dropdown';
+import Chart from 'chart.js/auto';
+
 import CardTemplate from './components/cards/template/Udoncard.vue';
 import CardList from './components/cards/list/CardList.vue';
 import {
   lostCsv, lostFront, lostBack, lostBackImage, lostUdonArgs,
 } from './domain/lostrpg/template';
+
+let chart: null | Chart = null;
+const drawChart = (a:number) => {
+  const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+  if (!canvas) return null;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  if (chart) {
+    chart.destroy();
+  }
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [a, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      }],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+};
 
 export default defineComponent({
   name: 'App',
@@ -38,7 +90,22 @@ export default defineComponent({
     Dropdown,
   },
   setup() {
+    const a = ref(1);
+    // const chart = ref<null | Chart<'bar', number[], string>>(null);
+    watchEffect(() => {
+      drawChart(a.value);
+    });
+    // onMounted(() => {
+    //   if (chart.value) {
+    //     console.log('destroy mounted', chart.value);
+    //     chart.value.destroy();
+    //     chart.value = null;
+    //   }
+    //   chart.value = drawChart(a.value);
+    // });
+
     return {
+      a,
       changeTemplate: (event:{value:string}) => {
         // eslint-disable-next-line no-alert
         if (!window.confirm('現在のデータは破棄されます。よろしいですか？')) {
