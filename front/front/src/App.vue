@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, onMounted, onUpdated, ref, watchEffect,
+  defineComponent, ref, watchEffect,
 } from 'vue';
 import Dropdown from 'primevue/dropdown';
 import Chart from 'chart.js/auto';
@@ -37,8 +37,7 @@ import {
   lostCsv, lostFront, lostBack, lostBackImage, lostUdonArgs,
 } from './domain/lostrpg/template';
 
-let chart: null | Chart = null;
-const drawChart = (a:number) => {
+const drawChart = (a:number, chart: Chart | null) => {
   const canvas = document.getElementById('myChart') as HTMLCanvasElement;
   if (!canvas) return null;
   const ctx = canvas.getContext('2d');
@@ -46,7 +45,7 @@ const drawChart = (a:number) => {
   if (chart) {
     chart.destroy();
   }
-  chart = new Chart(ctx, {
+  return new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -91,18 +90,13 @@ export default defineComponent({
   },
   setup() {
     const a = ref(1);
-    // const chart = ref<null | Chart<'bar', number[], string>>(null);
+
+    let chart: null | Chart;
+
     watchEffect(() => {
-      drawChart(a.value);
+      chart = drawChart(a.value, chart);
     });
-    // onMounted(() => {
-    //   if (chart.value) {
-    //     console.log('destroy mounted', chart.value);
-    //     chart.value.destroy();
-    //     chart.value = null;
-    //   }
-    //   chart.value = drawChart(a.value);
-    // });
+    setTimeout(() => { a.value = 2; }, 100);
 
     return {
       a,
