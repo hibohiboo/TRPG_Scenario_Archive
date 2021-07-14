@@ -44,6 +44,7 @@ import {
 
 import Button from 'primevue/button';
 import Textarea from 'primevue/textarea';
+import { parse } from 'papaparse';
 // eslint-disable-next-line import/no-unresolved
 import { draw } from '@/domain/cardList/draw';
 // eslint-disable-next-line import/no-unresolved
@@ -58,7 +59,7 @@ ${pc2}`;
 const csvKey = 'sa-csv-key';
 const configKey = 'sa-udonarium-card-config';
 
-const drawImage = (key:string, row:string, index:number) => {
+const drawImage = (key:string, row:string[], index:number) => {
   const card = localStorage.getItem(key);
 
   if (card) {
@@ -83,7 +84,7 @@ export default defineComponent({
     onMounted(() => {
       watchEffect(() => {
         localStorage.setItem(csvKey, csv.value);
-        csv.value.split('\n').forEach((row, index) => {
+        parse<string[]>(csv.value).data.forEach((row, index) => {
           drawImage(backId, row, index);
           drawImage(frontId, row, index);
         });
