@@ -13,7 +13,7 @@ import { replacePlaceHolder } from './placeholder'
 const getCanvasBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
   new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject('error')))
 interface ZipArgs {
-  list: string[],
+  list: string[][],
   size: number,
   cardName: string
   noteTitle: string
@@ -76,7 +76,7 @@ const createCardStacks = async (args: ZipArgs) => {
   return files
 }
 
-type Card = { back: string, front: string, text: string }
+type Card = { back: string, front: string, text: string[] }
 
 const createCardStack = (
   stackName: string,
@@ -199,7 +199,7 @@ const createCard = (
         ['name', `${args.noteTitle}`],
         ['type', 'note']
       ]
-      , replacePlaceHolder(card.text, args.noteText)
+      , replacePlaceHolder(card.text, args.noteText).replaceAll('\\n', '\n')
     )
     detail.appendChild(note)
   }

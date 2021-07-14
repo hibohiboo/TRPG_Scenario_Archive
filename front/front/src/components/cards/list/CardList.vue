@@ -110,7 +110,7 @@ export default defineComponent({
     // zip 出力
     const zipHandler = () => {
       createZip({
-        list: csv.value.split('\n'),
+        list: parse<string[]>(csv.value).data,
         size: size.value,
         cardName: cardName.value,
         noteTitle: noteTitle.value,
